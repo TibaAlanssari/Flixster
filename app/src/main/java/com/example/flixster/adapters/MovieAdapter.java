@@ -1,6 +1,7 @@
 package com.example.flixster.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,10 +67,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         public void bind(Movie movie) {
+            String imageUrl;
+
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             //can't render images natively, must use Glide
-            Glide.with(context).load(movie.getPosterPath()).into(ivPoster);
+
+            //if phone is in landscape
+            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                imageUrl = movie.getBackdropPath();
+            }
+            //else just use poster path image
+            else{
+                imageUrl = movie.getPosterPath();
+            }
+
+            //populate imageURL
+            Glide.with(context).load(imageUrl).into(ivPoster);
+
+
         }
     }
 }
