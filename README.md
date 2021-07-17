@@ -25,7 +25,7 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 <img src="FlixPart2.gif" width=250><br>
 
 ### Notes
-I faced some challenges trying to get the YouTube Player to work. I had to add some code to the mainfest file to get it to work properly. 
+I faced some challenges trying to get the YouTube Player to work. I had to add some code to the manifest file to get it to work properly. 
 
 ## Open-source libraries used
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
