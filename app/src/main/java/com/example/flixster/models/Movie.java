@@ -11,41 +11,44 @@ import java.util.List;
 @Parcel
 public class Movie {
 
+    String basePath = "https://image.tmdb.org/t/p/";
     int movieID;
     double rating;
     String posterPath;
     String backdropPath;
     String title;
     String overview;
+    private static String backdropImageSize;
+    private static String posterImageSize;
 
     //an empty constructor is needed for thr Parceler library
-    public Movie(){
+    public Movie(){}
 
-    }
-
-    public Movie(JSONObject jsonObject) throws JSONException {
+    public Movie(JSONObject jsonObject, String backdropImageSizePath, String posterImageSize) throws JSONException {
         posterPath = jsonObject.getString("poster_path");
         backdropPath = jsonObject.getString("backdrop_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         rating = jsonObject.getDouble("vote_average");
         movieID = jsonObject.getInt("id");
+        Movie.posterImageSize = posterImageSize;
+        Movie.backdropImageSize = backdropImageSize;
     }
 
-    public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
+    public static List<Movie> fromJsonArray(JSONArray movieJsonArray, String backdropImageSize, String posterImageSize) throws JSONException {
         List<Movie> movies = new ArrayList<>();
         for (int i = 0; i < movieJsonArray.length(); i++){
-            movies.add(new Movie(movieJsonArray.getJSONObject(i)));
+            movies.add(new Movie(movieJsonArray.getJSONObject(i), backdropImageSize, posterImageSize));
         }
         return movies;
     }
 
     public String getPosterPath() {
-        return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
+        return basePath + posterImageSize +  posterPath;
     }
 
     public String getBackdropPath(){
-        return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
+        return basePath + backdropImageSize + backdropPath;
     }
 
     public String getTitle() {
